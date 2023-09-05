@@ -37,7 +37,7 @@ const getJob = async (req, res) => {
     let job = await Job.findById(id);
 
     if (job && req.user) {
-      job = await job.populate("applications");
+      job = job.populate("applications");
     }
 
     if (job == null) {
