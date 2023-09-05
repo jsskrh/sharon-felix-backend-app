@@ -41,6 +41,41 @@ function authToken(req, res, next) {
   return next();
 }
 
+function isAuthenticated(req, res, next) {
+  if (
+    !req.body.token &&
+    !req.query.token &&
+    !req.headers["x-access-token"] &&
+    !req.headers["authorization"]
+  ) {
+    return next();
+  }
+
+  const authHeader = req.headers["authorization"];
+
+  const token =
+    req.body.token ||
+    req.query.token ||
+    req.headers["x-access-token"] ||
+    authHeader.split(" ")[1];
+
+  if (!token) {
+    return next();
+  }
+
+  try {
+    const user = jwt.verify(token, process.env.ACCESS_TOKEN);
+    req.user = user;
+  } catch (err) {
+    return res.status(401).json({
+      status: false,
+      message: "Invalid Token",
+    });
+  }
+  return next();
+}
+
 module.exports = {
   authToken,
+  isAuthenticated,
 };

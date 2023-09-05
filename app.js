@@ -4,6 +4,7 @@ const http = require("http");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/users");
+const jobRoutes = require("./routes/jobs");
 const swaggerUi = require("swagger-ui-express");
 // const swaggerDocument = require("./swagger.json");
 
@@ -39,5 +40,6 @@ mongoose
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/api/user", userRoutes);
+app.use("/api/job", jobRoutes);
 
 module.exports = app;
