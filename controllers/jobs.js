@@ -2,6 +2,7 @@ const Job = require("../models/job");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const Application = require("../models/application");
 // const { hideChars, getAverageRating } = require("../utils/helpers");
 dotenv.config();
 
