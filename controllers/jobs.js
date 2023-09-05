@@ -34,10 +34,12 @@ const getJob = async (req, res) => {
   try {
     const { id } = req.params;
 
-    let job = await Job.findById(id);
+    let job;
 
-    if (job && req.user) {
-      job = job.populate("applications");
+    if (req.user) {
+      job = await Job.findById(id).populate("applications");
+    } else {
+      job = await Job.findById(id);
     }
 
     if (job == null) {
