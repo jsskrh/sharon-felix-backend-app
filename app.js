@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/users");
 const jobRoutes = require("./routes/jobs");
+const realEstateRoutes = require("./routes/realEstate");
 const swaggerUi = require("swagger-ui-express");
 // const swaggerDocument = require("./swagger.json");
 
@@ -41,5 +42,6 @@ mongoose
 
 app.use("/api/user", userRoutes);
 app.use("/api/job", jobRoutes);
+app.use("/api/real-estate", realEstateRoutes);
 
 module.exports = app;
