@@ -10,5 +10,6 @@ router.post("/", auth.authToken, RealEstate.createRealEstate);
 router.get("/:id", auth.isAuthenticated, RealEstate.getRealEstate);
 router.put("/:id", auth.authToken, RealEstate.updateRealEstate);
 router.delete("/:id", auth.authToken, RealEstate.deleteRealEstate);
+router.post("/:id/request", RealEstate.makeRequest);
 
 module.exports = router;

@@ -20,7 +20,7 @@ const createRealEstate = async (req, res) => {
     const result = await RealEstate.create(req.body);
     return res.status(201).json({
       status: true,
-      message: "RealEstate created successfully",
+      message: "Real estate created successfully",
       data: result,
     });
   } catch (err) {
@@ -52,13 +52,50 @@ const getRealEstate = async (req, res) => {
 
     return res.status(200).json({
       status: true,
-      message: "RealEstate fetched successfully",
+      message: "Real estate fetched successfully",
       data: realEstate,
     });
   } catch (error) {
     return res.status(500).json({
       status: true,
       message: `Unable to fetch real estate. Please try again. \n Error: ${error}`,
+    });
+  }
+};
+
+const makeRequest = async (req, res) => {
+  try {
+    const check = await Request.find({
+      phoneNumber: req.body.phoneNumber,
+      email: req.body.email,
+      realEstate: req.params.id,
+    });
+
+    if (check) {
+      return res.status(400).json({
+        status: true,
+        message: "You have already made a request.",
+      });
+    }
+
+    const request = await Request.create({
+      ...req.body,
+      realEstate: req.params.id,
+    });
+    const realEstate = await RealEstate.findById(req.params.id);
+
+    realEstate.requests.push(request._id);
+    await realEstate.save();
+
+    return res.status(201).json({
+      status: true,
+      message: "Request has been made successfully",
+      data: request,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: true,
+      message: `Unable to make request. Please try again. \n Error: ${error}`,
     });
   }
 };
@@ -90,7 +127,7 @@ const updateRealEstate = async (req, res) => {
 
     return res.status(201).json({
       status: true,
-      message: "RealEstate updated successfully",
+      message: "Real estate updated successfully",
       data: updatedRealEstate,
     });
   } catch (error) {
@@ -109,7 +146,7 @@ const deleteRealEstate = async (req, res) => {
 
     return res.status(201).json({
       status: true,
-      message: "RealEstate successfully deleted",
+      message: "Real estate successfully deleted",
     });
   } catch (error) {
     return res.status(500).json({
@@ -125,4 +162,5 @@ module.exports = {
   getAllRealEstate,
   updateRealEstate,
   deleteRealEstate,
+  makeRequest,
 };

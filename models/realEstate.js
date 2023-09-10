@@ -32,6 +32,7 @@ const realEstateSchema = new mongoose.Schema(
       type: String,
       trim: true,
       enum: ["rent", "sell"],
+      required: true,
     },
     requests: [
       {
