@@ -71,7 +71,7 @@ const makeRequest = async (req, res) => {
       realEstate: req.params.id,
     });
 
-    if (check) {
+    if (check.length !== 0) {
       return res.status(400).json({
         status: true,
         message: "You have already made a request.",
