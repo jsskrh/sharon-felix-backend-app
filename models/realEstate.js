@@ -2,32 +2,26 @@ const mongoose = require("mongoose");
 
 const realEstateSchema = new mongoose.Schema(
   {
-    title: {
+    firstName: {
       type: String,
       required: true,
       trim: true,
     },
-    location: {
+    lastName: {
       type: String,
       required: true,
       trim: true,
     },
-    price: {
+    email: {
       type: String,
       required: true,
       trim: true,
     },
-    description: {
+    phoneNumber: {
       type: String,
       required: true,
       trim: true,
     },
-    images: [
-      {
-        type: String,
-        trim: true,
-      },
-    ],
     realEstateType: {
       type: String,
       trim: true,
